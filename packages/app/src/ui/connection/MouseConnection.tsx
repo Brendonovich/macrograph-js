@@ -1,8 +1,9 @@
 import { pinIsData, XY } from "@mg/core";
 import React from "react";
+
 import { observer } from "mobx-react-lite";
 
-import UIStore from "ui/store/UIStore";
+import UIStore from "ui/stores/UIStore";
 import { TYPE_COLORS } from "./Connection";
 
 interface ConnectionProps {

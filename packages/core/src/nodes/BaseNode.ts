@@ -12,6 +12,7 @@ import { PinType } from "../pins/PinTypes";
 
 export interface BaseNode {
   initialize?(): void;
+  deinitialize?(): void;
   handleAddPin?(): void;
   data?: any;
 }

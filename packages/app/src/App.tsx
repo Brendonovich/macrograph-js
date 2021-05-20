@@ -2,12 +2,12 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { getPackages } from "@mg/core";
 
-import Node from "ui/Node";
-import GraphStore from "./ui/store/GraphStore";
+import Node from "./ui/Node";
+import GraphStore from "./ui/stores/GraphStore";
 import ConnectionRenderer from "./ui/connection/ConnectionRenderer";
-import UIStore from "./ui/store/UIStore";
+import UIStore from "./ui/stores/UIStore";
 import CreateNodeMenu from "./ui/graph/CreateNodeMenu";
-import { dataRenderers } from "ui/sidebar/dataEditors";
+import { dataRenderers } from "./ui/sidebar/dataEditors";
 
 const App = observer(() => {
   const createNodeMenuPosition = UIStore.createNodeMenuPosition;
@@ -62,12 +62,15 @@ const App = observer(() => {
                 });
                 UIStore.toggleCreateNodeMenu();
               }}
-              items={getPackages()}
+              items={Object.entries(getPackages()).reduce(
+                (acc, [name, { nodes }]) => ({ ...acc, [name]: nodes }),
+                {}
+              )}
             />
           </div>
         )}
       </div>
-      <div className="w-96 bg-gray-700 border-l-4 border-gray-900 flex flex-col items-stretch text-white">
+      <div className="w-96 z-10 bg-gray-700 border-l-4 border-gray-900 flex flex-col items-stretch text-white">
         {UIStore.selectedNode && (
           <>
             <div className="p-2">

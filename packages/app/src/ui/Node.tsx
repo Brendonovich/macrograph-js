@@ -6,8 +6,8 @@ import { BaseNode, PinType } from "@mg/core";
 import DataPin from "./pins/DataPin";
 import ExecPin from "./pins/ExecPin";
 import DataPinInput from "./pins/DataPinInput";
-import UIStore from "./store/UIStore";
-import GraphStore from "./store/GraphStore";
+import UIStore from "./stores/UIStore";
+import GraphStore from "./stores/GraphStore";
 
 export const TYPE_COLORS: Record<PinType["name"], string> = {
   int: `border-teal-400 hover:bg-teal-400`,
@@ -48,6 +48,7 @@ const Node = observer(({ node }: Props) => {
       switch (e.key) {
         case "Backspace":
         case "Delete": {
+          UIStore.selectedNode = undefined;
           GraphStore.graph.deleteNode(node);
           break;
         }

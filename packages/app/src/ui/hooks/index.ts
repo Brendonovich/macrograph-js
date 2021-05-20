@@ -7,8 +7,8 @@ import {
   useRef,
 } from "react";
 import { Pin } from "@mg/core";
-import GraphStore from "ui/store/GraphStore";
-import UIStore from "ui/store/UIStore";
+import GraphStore from "ui/stores/GraphStore";
+import UIStore from "ui/stores/UIStore";
 
 export const usePin = (pin: Pin) => {
   const ref = useRef<HTMLDivElement>(null);

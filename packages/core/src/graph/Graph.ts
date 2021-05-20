@@ -50,6 +50,8 @@ export class Graph {
     node.inputExecPins.forEach((p) => this.disconnectPin(p));
     node.outputExecPins.forEach((p) => this.disconnectPin(p));
 
+    node.deinitialize?.();
+
     this.nodes.remove(node);
   }
 
@@ -60,8 +62,8 @@ export class Graph {
   ) {
     if (!typesCompatible(output.type, input.type)) return;
 
-    output.disconnect();
-    input.disconnect();
+    this.disconnectPin(output);
+    this.disconnectPin(input);
 
     output.inputPins.push(input);
     input.outputPin = output;
@@ -80,8 +82,8 @@ export class Graph {
 
   @action
   connectExecPins(output: OutputExecPin, input: InputExecPin) {
-    output.disconnect();
-    input.disconnect();
+    this.disconnectPin(output);
+    this.disconnectPin(input);
 
     output.inputPin = input;
     input.outputPin = output;
@@ -160,7 +162,7 @@ export class Graph {
         // @ts-expect-error
         const node: BaseNode = new ctor({ ...nodeData, graph });
         if (nodeData.data) node.data = observable(nodeData.data);
-        
+
         node.initialize?.();
 
         node.inputDataPins.forEach((p, i) => {

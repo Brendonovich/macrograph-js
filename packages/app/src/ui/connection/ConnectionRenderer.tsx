@@ -1,6 +1,6 @@
 import React, { useRef, useState, useLayoutEffect } from "react";
 import { observer } from "mobx-react-lite";
-import GraphStore from "ui/store/GraphStore";
+import GraphStore from "ui/stores/GraphStore";
 import Connection from "./Connection";
 import MouseConnection from "./MouseConnection";
 import { XY } from "@mg/core";
