@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
-import { PinType, DataConnection, ExecConnection } from "@mg/core";
+import { PinType, DataConnection, ExecConnection, XY } from "@mg/core";
 import colors from "tailwindcss/colors";
+import UIStore from "ui/stores/UIStore";
 
 interface ConnectionProps {
   connection: DataConnection<PinType> | ExecConnection;
@@ -30,7 +30,7 @@ const Connection = observer(({ connection, svgOffset }: ConnectionProps) => {
       y2={connection.path.y2 - svgOffset.y}
       stroke={color}
       strokeOpacity={0.75}
-      strokeWidth={2}
+      strokeWidth={2 * UIStore.zoom}
     />
   );
 });

@@ -1,25 +1,43 @@
 export const graphSeed = {
   nodes: [
     {
+      name: "Note On",
+      type: "Midi:Note On",
+      position: {
+        x: 90,
+        y: 267,
+      },
+      id: "L8TN3w7FEeDVXKzGAEOry",
+      data: [],
+      pins: {
+        data: {
+          in: [],
+          out: ["Nwn3R9vc", "ybx66nVd", "s4zdi3N2"],
+        },
+        exec: {
+          in: [],
+          out: ["656OlLK6"],
+        },
+      },
+    },
+    {
       name: "Switch On Int",
       type: "Utilities:Switch:Switch On Int",
       position: {
-        x: 259,
-        y: 457,
+        x: 230,
+        y: 261,
       },
-      id: "PY5zM7LIn84uJkV1MgXc3",
-      data: {
-        "Switch Cases": [36, 37, 38],
-      },
+      id: "iG9JTEUbOfWvSpUSJJlyE",
+      data: [[36, 37, 38]],
       pins: {
         data: {
           in: [
             {
-              id: "avyleLMj",
+              id: "vbbqvw7u",
               unconnectedValue: 0,
               connection: {
-                node: "YpeVejrQ9K5gS7ahbvHX_",
-                pin: "9tgcpgB0",
+                node: "L8TN3w7FEeDVXKzGAEOry",
+                pin: "Nwn3R9vc",
               },
             },
           ],
@@ -28,33 +46,14 @@ export const graphSeed = {
         exec: {
           in: [
             {
-              id: "grGOTu1T",
+              id: "40K_pdMG",
               connection: {
-                node: "YpeVejrQ9K5gS7ahbvHX_",
-                pin: "gp9P615N",
+                node: "L8TN3w7FEeDVXKzGAEOry",
+                pin: "656OlLK6",
               },
             },
           ],
-          out: ["47lSSggi", "I91LcsrP", "UwxxsCox", "2KGqm7mp"],
-        },
-      },
-    },
-    {
-      name: "MIDI Note On",
-      type: "Midi:Note On",
-      position: {
-        x: 114,
-        y: 458,
-      },
-      id: "YpeVejrQ9K5gS7ahbvHX_",
-      pins: {
-        data: {
-          in: [],
-          out: ["9tgcpgB0", "_OqdJC3g", "ubGnZhGN"],
-        },
-        exec: {
-          in: [],
-          out: ["gp9P615N"],
+          out: ["eaKvniPN", "trzgSmDk", "TT2wQcLs", "im4YuplX"],
         },
       },
     },
@@ -62,15 +61,49 @@ export const graphSeed = {
       name: "OBS Set Current Scene",
       type: "OBS:OBS Set Current Scene",
       position: {
-        x: 553,
-        y: 404,
+        x: 572,
+        y: 407,
       },
-      id: "0yKZd_BCaJFII5MmhRSmd",
+      id: "A5mCU7oQYtoP40t_7VN57",
+      data: [],
       pins: {
         data: {
           in: [
             {
-              id: "S1x4SyWZ",
+              id: "FRAi4H0y",
+              unconnectedValue: "camera",
+            },
+          ],
+          out: [],
+        },
+        exec: {
+          in: [
+            {
+              id: "MgGFkxlz",
+              connection: {
+                node: "iG9JTEUbOfWvSpUSJJlyE",
+                pin: "TT2wQcLs",
+              },
+            },
+          ],
+          out: ["dVkg24kG"],
+        },
+      },
+    },
+    {
+      name: "OBS Set Current Scene",
+      type: "OBS:OBS Set Current Scene",
+      position: {
+        x: 580,
+        y: 160,
+      },
+      id: "4PGjQ_xbQuU0Br8HbB1Ea",
+      data: [],
+      pins: {
+        data: {
+          in: [
+            {
+              id: "JT8BpzJT",
               unconnectedValue: "Main Scene",
             },
           ],
@@ -79,14 +112,14 @@ export const graphSeed = {
         exec: {
           in: [
             {
-              id: "rB0wGnKN",
+              id: "TMOjMyde",
               connection: {
-                node: "PY5zM7LIn84uJkV1MgXc3",
-                pin: "47lSSggi",
+                node: "iG9JTEUbOfWvSpUSJJlyE",
+                pin: "eaKvniPN",
               },
             },
           ],
-          out: ["N98nHjUF"],
+          out: ["pqV1viw1"],
         },
       },
     },
@@ -94,16 +127,17 @@ export const graphSeed = {
       name: "OBS Set Current Scene",
       type: "OBS:OBS Set Current Scene",
       position: {
-        x: 555,
-        y: 525,
+        x: 569,
+        y: 284,
       },
-      id: "54GekNZzjRhSLx2TgqXu1",
+      id: "Zd2MlRL58RRZ4iufrPOOi",
+      data: [],
       pins: {
         data: {
           in: [
             {
-              id: "rbYxf5p-",
-              unconnectedValue: "Hold On",
+              id: "LiQLaA9l",
+              unconnectedValue: "main scene",
             },
           ],
           out: [],
@@ -111,46 +145,14 @@ export const graphSeed = {
         exec: {
           in: [
             {
-              id: "nYcVR5zP",
+              id: "JeVTPKkh",
               connection: {
-                node: "PY5zM7LIn84uJkV1MgXc3",
-                pin: "I91LcsrP",
+                node: "iG9JTEUbOfWvSpUSJJlyE",
+                pin: "trzgSmDk",
               },
             },
           ],
-          out: ["qVwtrlZP"],
-        },
-      },
-    },
-    {
-      name: "OBS Set Current Scene",
-      type: "OBS:OBS Set Current Scene",
-      position: {
-        x: 552,
-        y: 645,
-      },
-      id: "w128Qro_HORykVKTeHHN8",
-      pins: {
-        data: {
-          in: [
-            {
-              id: "qK-YkEqH",
-              unconnectedValue: "End Stream",
-            },
-          ],
-          out: [],
-        },
-        exec: {
-          in: [
-            {
-              id: "YGhm7Vjb",
-              connection: {
-                node: "PY5zM7LIn84uJkV1MgXc3",
-                pin: "UwxxsCox",
-              },
-            },
-          ],
-          out: ["5kPylKv0"],
+          out: ["pPVZl6TO"],
         },
       },
     },

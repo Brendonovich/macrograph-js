@@ -14,7 +14,10 @@ export const usePin = (pin: Pin) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const moveListener = useCallback((e: MouseEvent) => {
-    UIStore.setMouseDragLocation({ x: e.clientX, y: e.clientY });
+    UIStore.setMouseDragLocation({
+      x: e.clientX - UIStore.translate.x,
+      y: e.clientY - UIStore.translate.y,
+    });
   }, []);
 
   const upListener = useCallback(() => {
@@ -57,9 +60,12 @@ export const usePinLocation = (pin: Pin, ref: RefObject<HTMLDivElement>) => {
   useLayoutEffect(() => {
     let rect = ref.current?.getBoundingClientRect()!;
 
+    let viewportDims = UIStore.viewportSize || { width: 0, height: 0 };
+    let zoom = UIStore.zoom;
+
     pin.setPosition({
-      x: rect.x + rect.width / 2,
-      y: rect.y + rect.height / 2,
+      x: rect.x + rect.width / 2 - UIStore.translate.x,
+      y: rect.y + rect.height / 2 - UIStore.translate.y,
     });
   });
 };

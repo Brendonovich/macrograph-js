@@ -5,7 +5,6 @@ class OBSEngine extends BaseEngine {
   ws = new OBSWS();
 
   async initialize() {
-    console.log('connecting')
     await this.ws.connect();
   }
 }

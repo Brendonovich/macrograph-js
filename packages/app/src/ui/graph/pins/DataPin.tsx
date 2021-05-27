@@ -1,16 +1,15 @@
-import React from "react";
 import clsx from "clsx";
 import { Observer } from "mobx-react-lite";
-import { PinType, OutputDataPin, InputDataPin } from "@mg/core";
+import { t, OutputDataPin, InputDataPin } from "@mg/core";
 import { usePin } from "ui/hooks";
+import { TypeNames } from "@mg/core/src/types/t";
 
 const isOutputPin = (pin: OutputDataPin | InputDataPin): pin is OutputDataPin =>
   pin instanceof OutputDataPin;
 
-export const pinColors: Record<
-  PinType["name"],
-  { base: string; active: string }
-> = {
+export const pinColors: {
+  [T in t.TypeNames]?: { base: string; active: string };
+} = {
   int: {
     active: "border-teal-400 bg-teal-400",
     base: "border-teal-400 hover:bg-teal-400",
@@ -35,7 +34,7 @@ interface Props {
 const DataPin = ({ pin }: Props) => {
   const { props, ref } = usePin(pin);
   const isOutput = isOutputPin(pin);
-  const colors = pinColors[pin.type.name];
+  const colors = pinColors[pin.type.name as TypeNames]!;
 
   return (
     <Observer>

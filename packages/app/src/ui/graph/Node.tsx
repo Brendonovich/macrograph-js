@@ -1,20 +1,20 @@
-import React, { useCallback, useRef } from "react";
+import { useCallback, useRef } from "react";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 
-import { BaseNode, PinType } from "@mg/core";
+import { BaseNode, t } from "@mg/core";
 import DataPin from "./pins/DataPin";
 import ExecPin from "./pins/ExecPin";
 import DataPinInput from "./pins/DataPinInput";
-import UIStore from "./stores/UIStore";
-import GraphStore from "./stores/GraphStore";
+import UIStore from "../stores/UIStore";
+import GraphStore from "../stores/GraphStore";
 
-export const TYPE_COLORS: Record<PinType["name"], string> = {
+export const TYPE_COLORS: { [T in t.Type["name"]]?: string } = {
   int: `border-teal-400 hover:bg-teal-400`,
   boolean: `border-red-600 hover:bg-red-600`,
   string: `border-pink-500 hover:bg-pink-500`,
   float: `border-green-500 hover:bg-green-500`,
-  enum: `border-blue-600 hover:bg-blue-600`,
+  // enum: `border-blue-600 hover:bg-blue-600`,
 };
 const HEADER_COLOR: Record<string, string> = {
   base: "bg-gray-500",
@@ -34,9 +34,12 @@ const Node = observer(({ node }: Props) => {
     (e: MouseEvent) => {
       if (mouseDownPos.current !== null) {
         const offset = mouseDownPos.current;
+        const factor = 1 / UIStore.zoom;
         node.setPosition({
-          x: e.clientX - offset[0],
-          y: e.clientY - offset[1],
+          x: node.position.x + factor * e.movementX,
+          // e.clientX - offset[0],
+          y: node.position.y + factor * e.movementY,
+          //  e.clientY - offset[1],
         });
       }
     },
@@ -83,20 +86,19 @@ const Node = observer(({ node }: Props) => {
         )}
         onMouseDown={(e) => {
           e.stopPropagation();
+
+          if (e.button !== 0) return;
           UIStore.setSelectedNode(node);
           window.addEventListener("mousemove", mouseCallback);
           mouseDownPos.current = [
             e.clientX - node.position.x,
             e.clientY - node.position.y,
           ];
-
-          const upListener = () => {
-            window.removeEventListener("mousemove", mouseCallback);
-            mouseDownPos.current = null;
-            window.removeEventListener("mouseup", upListener);
-          };
-
-          window.addEventListener("mouseup", upListener);
+        }}
+        onMouseUp={(e) => {
+          e.stopPropagation();
+          window.removeEventListener("mousemove", mouseCallback);
+          mouseDownPos.current = null;
         }}
       >
         {node.name}

@@ -1,4 +1,3 @@
-import React from "react";
 import clsx from "clsx";
 import { Observer } from "mobx-react-lite";
 import { usePin } from "ui/hooks";

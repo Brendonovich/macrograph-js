@@ -1,10 +1,10 @@
-import { ExecNode, types } from "@mg/core";
+import { ExecNode, t } from "@mg/core";
 import engine from "../engine";
 
 export class SetCurrentScene extends ExecNode {
   sceneInput = this.createInputDataPin({
-    name: "Scene Name",
-    type: types.string(),
+    name: "Scene",
+    type: t.string(),
   });
 
   async work() {

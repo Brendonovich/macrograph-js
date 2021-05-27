@@ -1,4 +1,4 @@
-import { EventNode, types } from "@mg/core";
+import { EventNode, t } from "@mg/core";
 import engine from "../engine";
 
 interface Data {
@@ -10,15 +10,15 @@ interface Data {
 export class MIDINoteOn extends EventNode<Data> {
   noteOutput = this.createOutputDataPin({
     name: "Note",
-    type: types.int(),
+    type: t.int,
   });
   velocityOutput = this.createOutputDataPin({
     name: "Velocity",
-    type: types.int(),
+    type: t.int,
   });
   channelOutput = this.createOutputDataPin({
     name: "Channel",
-    type: types.int(),
+    type: t.int,
   });
 
   initialize() {

@@ -1,16 +1,16 @@
-import { ExecNode, nodeTypeVariants, PureNode, types } from "@mg/core";
+import { ExecNode, nodeTypeVariants, PureNode, t } from "@mg/core";
 
 const ToStrings = nodeTypeVariants(
   {
-    Boolean: types.boolean(),
-    Float: types.float(),
-    Int: types.int(),
+    Boolean: t.boolean(),
+    Float: t.float(),
+    Int: t.int(),
   },
   (name, type) => ({
     name: `To String (${name})`,
     nodeType: class extends PureNode {
       input = this.createInputDataPin({ type });
-      output = this.createOutputDataPin({ type: types.string() });
+      output = this.createOutputDataPin({ type: t.string() });
 
       work() {
         this.output.value = this.input.value.toString();
@@ -20,7 +20,7 @@ const ToStrings = nodeTypeVariants(
 );
 
 class Print extends ExecNode {
-  valueInput = this.createInputDataPin({ name: "Value", type: types.string() });
+  valueInput = this.createInputDataPin({ name: "Value", type: t.string() });
 
   work() {
     console.log(this.valueInput.value.toString());

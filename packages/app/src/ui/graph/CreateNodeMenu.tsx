@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useState } from "react";
+import  { useState } from "react";
 
 import { NodeCategory } from "@mg/core";
 import clsx from "clsx";
@@ -20,6 +20,7 @@ const Category = observer((props: Category) => {
           e.stopPropagation();
           setOpen(!open);
         }}
+        onMouseDown={(e) => e.stopPropagation()}
       >
         <svg
           className={clsx(
@@ -43,6 +44,7 @@ const Category = observer((props: Category) => {
               <p
                 className="hover:bg-gray-300 cursor-pointer hover:text-black rounded-sm px-2"
                 key={name}
+                onMouseDown={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.stopPropagation();
                   props.onNodeClicked(`${props.name}:${name}`);
@@ -73,7 +75,7 @@ export interface Props {
 }
 const CreateNodeMenu = observer((props: Props) => (
   <div
-    className="w-80 h-64 overflow-y-auto bg-gray-900 p-2 space-y-1 border-2 border-black rounded-md"
+    className="w-80 h-96 overflow-y-auto bg-gray-900 p-2 space-y-1 border-2 border-black rounded-md"
     onContextMenu={(e) => e.stopPropagation()}
   >
     {Object.entries(props.items).map(([category, nodesOrPackages]) => (

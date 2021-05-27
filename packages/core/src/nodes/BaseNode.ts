@@ -1,20 +1,19 @@
-import { action, observable, toJS, IObservableObject } from "mobx";
+import { Graph } from "graph";
+import { action, observable, toJS } from "mobx";
 import { nanoid } from "nanoid";
 
-import { Graph, NodeArgs, SerializedNode, XY } from "types";
+import { NodeArgs, SerializedNode, t, XY } from "types";
 import {
   OutputDataPin,
   InputDataPin,
   OutputExecPin,
   InputExecPin,
 } from "../pins";
-import { PinType } from "../pins/PinTypes";
 
 export interface BaseNode {
   initialize?(): void;
   deinitialize?(): void;
   handleAddPin?(): void;
-  data?: any;
 }
 
 export abstract class BaseNode {
@@ -38,15 +37,15 @@ export abstract class BaseNode {
     this.graph = graph;
   }
 
-  outputDataPins = observable<OutputDataPin<PinType>>([]);
-  createOutputDataPin<T extends PinType>(args: { type: T; name?: string }) {
+  outputDataPins = observable<OutputDataPin<t.Type>>([]);
+  createOutputDataPin<T extends t.Type>(args: { type: T; name?: string }) {
     const pin = new OutputDataPin(args, this);
     this.outputDataPins.push(pin);
     return pin;
   }
 
-  inputDataPins = observable<InputDataPin<PinType>>([]);
-  createInputDataPin<T extends PinType>(args: { type: T; name?: string }) {
+  inputDataPins = observable<InputDataPin<t.Type>>([]);
+  createInputDataPin<T extends t.Type>(args: { type: T; name?: string }) {
     const pin = new InputDataPin(args, this);
     this.inputDataPins.push(pin);
     return pin;
@@ -58,6 +57,7 @@ export abstract class BaseNode {
     this.outputExecPins.push(pin);
     return pin;
   }
+
   clearOutputExecPins() {
     this.outputExecPins.forEach((p) => this.graph.disconnectPin(p));
     this.outputExecPins.clear();
@@ -83,7 +83,7 @@ export abstract class BaseNode {
       type: this.type,
       position: toJS(this.position),
       id: this.id,
-      data: toJS(this.data),
+      data: this.data.map((d) => toJS(d.value)),
       pins: {
         data: {
           in: this.inputDataPins.map((pin) => ({
@@ -135,5 +135,19 @@ export abstract class BaseNode {
     this.selected = !!selected;
   }
 
-  abstract work(): void | Promise<void>;
+  abstract work(): any | Promise<any>;
+
+  data: DataItem<t.Type>[] = [];
+
+  createDataItem<T extends t.Type>(item: DataItem<T>) {
+    const dataItem = observable(item);
+    this.data.push(dataItem);
+    return dataItem as DataItem<T>;
+  }
+}
+
+export interface DataItem<T extends t.Type> {
+  name: string;
+  type: T;
+  value: t.TypeOf<T["type"]>;
 }

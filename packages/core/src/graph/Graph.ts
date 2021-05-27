@@ -6,18 +6,16 @@ import {
   InputDataPin,
   OutputExecPin,
   InputExecPin,
-  PinType,
   Pin,
 } from "../pins";
 import { pinsAreIOPair } from "../utils/pins";
 import { DataConnection, ExecConnection } from "./Connection";
 import { findNodeType } from "../packages";
-import { SerializedGraph, XY } from "types";
-import { typesCompatible } from "../pins/PinTypes";
+import { SerializedGraph, t, XY } from "../types";
 
 export class Graph {
   nodes = observable<BaseNode>([]);
-  connections = observable<DataConnection<PinType> | ExecConnection>([]);
+  connections = observable<DataConnection<t.Type> | ExecConnection>([]);
 
   @action
   addNode(node: BaseNode) {
@@ -56,13 +54,12 @@ export class Graph {
   }
 
   @action
-  connectDataPins<T extends PinType>(
+  connectDataPins<T extends t.Type>(
     output: OutputDataPin<T>,
     input: InputDataPin<T>
   ) {
-    if (!typesCompatible(output.type, input.type)) return;
+    if (!t.typesCompatible(output.type, input.type)) return;
 
-    this.disconnectPin(output);
     this.disconnectPin(input);
 
     output.inputPins.push(input);
@@ -161,7 +158,10 @@ export class Graph {
 
         // @ts-expect-error
         const node: BaseNode = new ctor({ ...nodeData, graph });
-        if (nodeData.data) node.data = observable(nodeData.data);
+
+        nodeData.data.forEach((v, i) => {
+          node.data[i].value = v;
+        });
 
         node.initialize?.();
 

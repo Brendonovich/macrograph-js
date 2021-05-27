@@ -30,8 +30,6 @@ class MIDIEngine extends EventEmitter {
         // this.midiInput?.removeListener();
 
         this.input = data;
-        console.log(this.input);
-        console.log(this.midiInput);
         this.setupListeners(this.midiInput!);
       } else {
         this.output = data;
@@ -43,7 +41,6 @@ class MIDIEngine extends EventEmitter {
 
   setupListeners(input: Input) {
     input.addListener("noteon", "all", (d) => {
-      console.log(d);
       this.emit("note-on", {
         note: d.note.number,
         velocity: d.rawVelocity,

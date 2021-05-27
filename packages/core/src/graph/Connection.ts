@@ -1,15 +1,14 @@
 import { computed } from "mobx";
 import { nanoid } from "nanoid";
+import { t } from "types";
 import { BaseNode } from "../nodes";
 import {
-  PinType,
   BasePin,
   InputDataPin,
   InputExecPin,
   OutputDataPin,
   OutputExecPin,
 } from "../pins";
-
 export class Connection<O extends BasePin, I extends BasePin> {
   id = nanoid();
 
@@ -43,16 +42,16 @@ export class Connection<O extends BasePin, I extends BasePin> {
   }
 }
 
-export class DataConnection<T extends PinType> extends Connection<
+export class DataConnection<T extends t.Type> extends Connection<
   OutputDataPin<T>,
   InputDataPin<T>
 > {
-  type: PinType;
+  type: t.Type;
 
   constructor(args: {
     output: OutputDataPin<T>;
     input: InputDataPin<T>;
-    type: PinType;
+    type: t.Type;
   }) {
     super(args);
     this.type = args.type;

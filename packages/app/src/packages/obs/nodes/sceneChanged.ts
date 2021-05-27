@@ -1,4 +1,4 @@
-import { EventNode, types } from "@mg/core";
+import { EventNode, t } from "@mg/core";
 import engine from "../engine";
 
 interface Data {
@@ -7,7 +7,7 @@ interface Data {
 export class SceneChanged extends EventNode<Data> {
   nameOutput = this.createOutputDataPin({
     name: "Scene",
-    type: types.string(),
+    type: t.string(),
   });
 
   initialize() {

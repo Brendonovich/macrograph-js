@@ -5,6 +5,7 @@ export * from "./pins";
 export * from "./utils";
 export * from "./packages";
 export * from "./engine";
+export * from "./types"
 
 export const initialize = async () => {
   await Promise.all(

@@ -1,7 +1,6 @@
 import { Graph } from "graph";
-import { PinType } from "pins";
 
-export * from "../index";
+export * as t from "./t";
 
 export declare interface NodeArgs {
   position: XY;
@@ -21,7 +20,7 @@ export interface SerializedNode {
   type: string;
   position: XY;
   id: string;
-  data?: Record<string, any>;
+  data: any[];
   pins: {
     data: {
       in: {

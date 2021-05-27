@@ -7,6 +7,7 @@ export abstract class ExecNode extends BaseNode {
 
   async _process() {
     await super.process();
-    await this.execOutput.inputPin?.node.process();
+    await this.execOutput.connection?.inputNode.process()
+    // stninputPin?.node.process();
   }
 }

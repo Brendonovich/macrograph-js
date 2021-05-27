@@ -5,7 +5,12 @@
   ],
   "private": true,
   "scripts": {
+    "dev": "concurrently \"yarn app dev\" \"yarn electron dev\"",
     "app": "yarn workspace @mg/app",
-    "core": "yarn workspace @mg/core"
+    "core": "yarn workspace @mg/core",
+    "electron": "yarn workspace @mg/electron"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }

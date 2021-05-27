@@ -13,4 +13,7 @@ export default defineConfig({
       externals: builtins,
     }),
   ],
+  esbuild: {
+    jsxInject: "import React from \"react\""
+  }
 });

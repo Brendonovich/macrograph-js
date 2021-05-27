@@ -1,11 +1,11 @@
-import { EventNode, types } from "@mg/core";
+import { EventNode, t } from "@mg/core";
 
 interface EventArgs {
   value: number;
 }
 export class Test extends EventNode<EventArgs> {
   valueOutput = this.createOutputDataPin({
-    type: types.int(),
+    type: t.int(),
     name: "Value",
   });
 

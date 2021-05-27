@@ -1,5 +1,4 @@
 import { pinIsData, XY } from "@mg/core";
-import React from "react";
 
 import { observer } from "mobx-react-lite";
 

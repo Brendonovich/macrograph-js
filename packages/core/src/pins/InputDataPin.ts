@@ -4,11 +4,10 @@ import { DataConnection } from "../graph";
 import { BaseNode } from "../nodes";
 import { OutputDataPin } from ".";
 import BasePin from "./BasePin";
-import { PinType, TypeOf } from "./PinTypes";
-
+import { t } from "../types";
 export class InputDataPin<
-  T extends PinType = PinType,
-  V = TypeOf<T>
+  T extends t.Type = t.Type,
+  V = t.TypeOf<T>
 > extends BasePin {
   type: T;
   value: V;
@@ -49,7 +48,8 @@ export class InputDataPin<
     super(args, node);
     this.type = args.type;
 
-    const defaultValue = args.type.defaultValue() as unknown as V;
+    // TODO: Default values
+    const defaultValue = "" as unknown as V;
     this.value = args.value ?? defaultValue;
     this.unconnectedValue = args.unconnectedValue ?? defaultValue;
   }

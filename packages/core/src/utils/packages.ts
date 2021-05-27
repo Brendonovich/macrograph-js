@@ -1,11 +1,15 @@
 import { BaseNode } from "../nodes";
-import { PinType } from "../pins";
+import { t } from "../types";
 
-export const nodeTypeVariants = <T extends Record<string, PinType>>(
-  typeVariants: T,
-  classDeclaration: <K extends keyof T>(
+type Variants = {
+  [key: string]: t.ZodType<any, any, any>;
+};
+
+export const nodeTypeVariants = <V extends Variants>(
+  typeVariants: V,
+  classDeclaration: <K extends keyof V>(
     name: K,
-    type: T[K]
+    type: V[K]
   ) => { name: string; nodeType: typeof BaseNode }
 ): Record<string, typeof BaseNode> =>
   Object.entries(typeVariants).reduce((acc, [typeName, typeVariant]) => {

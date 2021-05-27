@@ -1,4 +1,4 @@
-import { EventNode, types } from "@mg/core";
+import { EventNode, t } from "@mg/core";
 import WebMidi from "webmidi";
 
 interface Data {
@@ -9,11 +9,11 @@ interface Data {
 export class MIDIDeviceConnected extends EventNode<Data> {
   nameOutput = this.createOutputDataPin({
     name: "Name",
-    type: types.string(),
+    type: t.string(),
   });
   isInputOutput = this.createOutputDataPin({
     name: "Is Input",
-    type: types.boolean(),
+    type: t.boolean(),
   });
 
   initialize() {
